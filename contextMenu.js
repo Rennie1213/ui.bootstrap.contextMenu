@@ -275,12 +275,13 @@ angular.module('ui.bootstrap.contextMenu', [])
 
         function removeAllContextMenus(e) {
             if ($(e.target).hasClass('angular-bootstrap-contextmenu')) {
+                e.preventDefault();
                 $(event.currentTarget).removeClass('context');
                 removeContextMenus();
             }
         }
 
-        $(document.body).on('mousedown', removeAllContextMenus);
+        $(document.body).on('mousedown touchstart', removeAllContextMenus);
 
         $contextMenu.on('contextmenu', function (event) {
             $(event.currentTarget).removeClass('context');
@@ -290,7 +291,7 @@ angular.module('ui.bootstrap.contextMenu', [])
 
         $scope.$on("$destroy", function () {
             removeContextMenus();
-            $(document.body).off('mousedown', removeAllContextMenus);
+            $(document.body).off('mousedown touchstart', removeAllContextMenus);
         });
 
         contextMenus.push($ul);
